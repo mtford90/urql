@@ -1,0 +1,57 @@
+{
+  "name": "@urql/preact",
+  "version": "1.1.1",
+  "description": "A highly customizable and versatile GraphQL client for Preact",
+  "sideEffects": false,
+  "homepage": "https://formidable.com/open-source/urql/docs/",
+  "bugs": "https://github.com/FormidableLabs/urql/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormidableLabs/urql.git",
+    "directory": "packages/preact-urql"
+  },
+  "keywords": [
+    "graphql client",
+    "state management",
+    "cache",
+    "formidablelabs",
+    "exchanges",
+    "preact"
+  ],
+  "main": "dist/urql-preact.cjs.js",
+  "module": "dist/urql-preact.esm.js",
+  "types": "dist/types/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "LICENSE",
+    "CHANGELOG.md",
+    "README.md",
+    "dist/"
+  ],
+  "scripts": {
+    "test": "jest",
+    "clean": "rimraf dist",
+    "check": "tsc --noEmit",
+    "build": "rollup -c ../../scripts/rollup/config.js",
+    "prepare": "../../scripts/prepare/index.js",
+    "prepublishOnly": "run-s clean test build"
+  },
+  "jest": {
+    "preset": "../../scripts/jest/preset"
+  },
+  "devDependencies": {
+    "@testing-library/preact": "^1.0.2",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "preact": "^10.3.1"
+  },
+  "peerDependencies": {
+    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
+    "preact": ">= 10.0.0"
+  },
+  "dependencies": {
+    "@urql/core": ">=1.9.0",
+    "wonka": "^4.0.6"
+  }
+}

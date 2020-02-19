@@ -1,0 +1,67 @@
+{
+  "name": "urql",
+  "version": "1.9.0",
+  "description": "A highly customizable and versatile GraphQL client for React",
+  "sideEffects": false,
+  "homepage": "https://formidable.com/open-source/urql/docs/",
+  "bugs": "https://github.com/FormidableLabs/urql/issues",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FormidableLabs/urql.git",
+    "directory": "packages/react-urql"
+  },
+  "keywords": [
+    "graphql client",
+    "state management",
+    "cache",
+    "formidablelabs",
+    "exchanges",
+    "react"
+  ],
+  "main": "dist/urql.cjs.js",
+  "module": "dist/urql.esm.js",
+  "types": "dist/types/index.d.ts",
+  "source": "src/index.ts",
+  "files": [
+    "LICENSE",
+    "CHANGELOG.md",
+    "README.md",
+    "core/",
+    "dist/"
+  ],
+  "scripts": {
+    "test": "jest",
+    "clean": "rimraf dist",
+    "check": "tsc --noEmit",
+    "build": "rollup -c ../../scripts/rollup/config.js",
+    "prepare": "../../scripts/prepare/index.js",
+    "prepublishOnly": "run-s clean test build"
+  },
+  "jest": {
+    "preset": "../../scripts/jest/preset"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.19",
+    "@types/react-test-renderer": "^16.9.2",
+    "@types/use-subscription": "^1.0.0",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/react-hooks": "^3.2.1",
+    "graphql": "^14.6.0",
+    "graphql-tag": "^2.10.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-is": "^16.12.0",
+    "react-ssr-prepass": "^1.1.2",
+    "react-test-renderer": "^16.12.0"
+  },
+  "peerDependencies": {
+    "graphql": "^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0",
+    "react": ">= 16.8.0"
+  },
+  "dependencies": {
+    "@urql/core": "^1.9.0",
+    "use-subscription": "^1.3.0",
+    "wonka": "^4.0.7"
+  }
+}

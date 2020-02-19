@@ -1,21 +1,31 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "urql": ["packages/react-urql/src"],
+      "*-urql": ["packages/*-urql/src"],
+      "@urql/exchange-*": ["exchanges/*/src"],
+      "@urql/*": ["packages/*-urql/src", "packages/*/src"]
+    },
     "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     "noUnusedLocals": true,
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "outDir": "dist/cjs",
+    "noEmit": true,
     "lib": ["dom", "esnext"],
     "jsx": "react",
-    "declaration": false,
     "module": "es2015",
     "moduleResolution": "node",
     "target": "esnext",
     "strict": true,
     "noImplicitAny": false,
-    "noUnusedParameters": true,
-    "sourceMap": true,
-    "pretty": true
+    "noUnusedParameters": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["packages", "exchanges"],
+  "exclude": [
+    "scripts",
+    "packages/*/examples",
+    "packages/*/dist",
+    "exchanges/*/examples",
+    "exchanges/*/dist"
+  ]
 }
