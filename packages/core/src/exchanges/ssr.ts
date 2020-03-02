@@ -1,12 +1,13 @@
 import { pipe, share, filter, merge, map, tap } from 'wonka';
 import { Exchange, OperationResult, Operation } from '../types';
 import { CombinedError } from '../utils';
+import { GraphQLError } from 'graphql';
 
 export interface SerializedResult {
   data?: any;
   error?: {
     networkError?: string;
-    graphQLErrors: string[];
+    graphQLErrors: Array<{ message: string; originalError?: unknown }>;
   };
 }
 
@@ -37,7 +38,16 @@ const serializeResult = ({
   const result: SerializedResult = { data, error: undefined };
   if (error !== undefined) {
     result.error = {
-      graphQLErrors: error.graphQLErrors.map(x => x.message),
+      graphQLErrors: error.graphQLErrors.map(x => {
+        const originalError = x.originalError ? { ...x.originalError } : null;
+
+        // If the original error is a javascript error, remove the stacktrace - unlikely to want to serialise this.
+        if (originalError?.stack) {
+          delete originalError.stack;
+        }
+
+        return { message: x.message, originalError };
+      }),
       networkError: error.networkError ? '' + error.networkError : undefined,
     };
   }
@@ -51,6 +61,7 @@ const deserializeResult = (
   result: SerializedResult
 ): OperationResult => {
   const { error, data } = result;
+
   const deserialized: OperationResult = {
     operation,
     data,
@@ -62,7 +73,18 @@ const deserializeResult = (
             : undefined,
           graphQLErrors:
             error.graphQLErrors && error.graphQLErrors.length
-              ? error.graphQLErrors
+              ? error.graphQLErrors.map(({ message, originalError }) => {
+                  const graphQLError = new GraphQLError(
+                    message,
+                    undefined,
+                    undefined,
+                    undefined,
+                    undefined,
+                    originalError as any
+                  );
+
+                  return graphQLError;
+                })
               : undefined,
         })
       : undefined,

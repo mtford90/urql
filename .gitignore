@@ -15,3 +15,5 @@ exchanges/*/LICENSE
 # TODO: Figure out how to remove these:
 tmp/
 dist/
+
+.idea
